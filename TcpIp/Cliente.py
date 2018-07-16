@@ -1,15 +1,17 @@
 import socket
 
-HOST = "0.0.0.0"  # The remote host
-PORT = 500             # The same port as used by the server
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+HOST = "10.22.10.63"  # The remote host
+PORT = 900             # The same port as used by the server
+tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-s.connect((HOST, PORT))
+tcp.connect((HOST, PORT))
 
-s.sendall(b"hello")
+print("Para Sair use ctrl+x\n")
+msg = input()
 
-data = s.recv(1024)
+while msg!= "\x18":
+    tcp.send(msg.encode("utf8"))
+    #data = tcp.recv(1024)
+    msg = input()
+tcp.close()
 
-s.close()
-
-print ('Received', repr(data))
